@@ -56,40 +56,19 @@ function FilmSelection() {
 
                 <span>OR</span>
                 <Button variant={"outlined"} onClick={handleOpenModal}>Select Group</Button>
-
             </div>
-            <div>
-                {selectedGroup ? (
-                    <div>
-                        <h3>{`<<${selectedGroup}>> Options`}:</h3>
-                        <Grid container spacing={2}>
 
-                            {options.filter(option => option.group === selectedGroup).map((option) => (
-                                !values.find(({title}) => title == option.title) ? (
-                                    <Grid item key={option.title}>
-                                        <TextBox handleClick={() => handleAdd(option)} variant={'add'}>
-                                            {option.title}
-                                        </TextBox>
-                                    </Grid>
-                                ) : null
-                            ))}
-                        </Grid>
-                    </div>
-                ) : null}
+            {selectedGroup ? <GroupSection
+                selectedGroup={selectedGroup}
+                values={values}
+                handleAdd={handleAdd}
+            /> : null}
 
-            </div>
-            {values.length ? <div>
-                <h3>selected options ({values.length}):</h3>
-                <Grid container spacing={2}>
-                    {values.map(({title, year, group}) => (
-                        <Grid item>
-                            <TextBox handleClick={() => handleDeleteValue(title)} variant={'delete'}>
-                                {title}
-                            </TextBox>
-                        </Grid>
-                    ))}
-                </Grid>
-            </div> : null}
+            {values.length ? <SelectedOptionsSection
+                values={values}
+                handleDeleteValue={handleDeleteValue}
+            /> : null}
+
             <GroupSelectionModal
                 isModal={isModal}
                 handleCloseModal={handleCloseModal}
@@ -103,3 +82,42 @@ function FilmSelection() {
 
 export default FilmSelection;
 
+
+const SelectedOptionsSection = React.memo(({
+                                               values,
+                                               handleDeleteValue,
+                                           }) => (
+    <div>
+        <h3>selected options ({values.length}):</h3>
+        <Grid container spacing={2}>
+            {values.map(({title, year, group}) => (
+                <Grid item>
+                    <TextBox handleClick={() => handleDeleteValue(title)} variant={'delete'}>
+                        {title}
+                    </TextBox>
+                </Grid>
+            ))}
+        </Grid>
+    </div>
+))
+
+const GroupSection = React.memo(({
+                                     selectedGroup,
+                                     values,
+                                     handleAdd,
+                                 }) => (
+    <div>
+        <h3>{`<<${selectedGroup}>> Options`}:</h3>
+        <Grid container spacing={2}>
+            {options.filter(option => option.group === selectedGroup).map((option) => (
+                !values.find(({title}) => title === option.title) ? (
+                    <Grid item key={option.title}>
+                        <TextBox handleClick={() => handleAdd(option)} variant={'add'}>
+                            {option.title}
+                        </TextBox>
+                    </Grid>
+                ) : null
+            ))}
+        </Grid>
+    </div>
+))
