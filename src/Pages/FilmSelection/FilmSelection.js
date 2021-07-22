@@ -1,19 +1,12 @@
 import {useState} from "react";
 import React from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import {options} from "./sampleData";
 import {Button, Grid, Icon, Modal} from "@material-ui/core";
 import {useStyles} from "./FilmSelection.style";
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import clsx from "clsx";
-
-const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
-const checkedIcon = <CheckBoxIcon fontSize="small"/>;
+import {CustomAutocomplete} from "../../components/CustomAutocomplete/CustomAutocomplete";
 
 function FilmSelection() {
     const classes = useStyles()
@@ -43,6 +36,10 @@ function FilmSelection() {
         setSelectedValues([...selectedValues, option])
     }
 
+    const handleReplaceValues = (newValue) => {
+        setSelectedValues(newValue)
+    }
+
     const handleGroupSelection = (group) => {
         isSelectedGroup(group)
         setIsModal(false)
@@ -52,40 +49,12 @@ function FilmSelection() {
         <div className="App">
             <h2>Film Selection by Name or Group Name</h2>
             <div className={classes.autocompleteContainer}>
-
-                <Autocomplete
-                    multiple
-                    options={options}
-                    value={selectedValues}
-                    select
-                    onChange={(_, values, v, c, cc) => {
-                        setSelectedValues(values)
-                        console.log("_ => ", _)
-                        console.log("values => ", values)
-                        console.log("v => ", v)
-                        console.log("c => ", c)
-                        console.log("cc => ", cc)
-                    }
-                    }
-                    groupBy={(option) => option.group}
-                    getOptionLabel={(option) => option.title}
-                    disableCloseOnSelect
-                    renderOption={(option, {selected}) => (
-                        <>
-                            <Checkbox
-                                icon={icon}
-                                checkedIcon={checkedIcon}
-                                style={{marginRight: 8}}
-                                checked={selected}
-                            />
-                            {option.title}
-                        </>
-                    )}
-                    style={{width: 500}}
-                    renderInput={(params) => (
-                        <TextField {...params} variant="outlined" label="Select Film" placeholder="Select From All Groups..."/>
-                    )}
+                <CustomAutocomplete options={options}
+                                    alues={selectedValues}
+                                    setValue={handleReplaceValues}
+                                    groupBy={'group'}
                 />
+
                 <span>OR</span>
                 <Button variant={"outlined"} onClick={handleOpenModal}>Select Group</Button>
 
@@ -144,7 +113,8 @@ function FilmSelection() {
                     <Grid container spacing={2}>
                         {groups.map((group) => (
                             <Grid item>
-                                <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)} onClick={() => handleGroupSelection(group)}
+                                <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
+                                      onClick={() => handleGroupSelection(group)}
                                       key={group}>
                                     <Icon>
                                     <CloseIcon fontSize={'small'}/>
