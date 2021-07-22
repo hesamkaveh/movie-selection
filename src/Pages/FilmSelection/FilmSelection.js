@@ -49,7 +49,7 @@ function FilmSelection() {
             <h2>Film Selection by Name or Group Name</h2>
             <div className={classes.autocompleteContainer}>
                 <CustomAutocomplete options={options}
-                                    alues={values}
+                                    values={values}
                                     setValue={handleReplaceValues}
                                     groupBy={'group'}
                 />
