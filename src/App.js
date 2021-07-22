@@ -4,7 +4,9 @@ import FilmSelection from "./Pages/FilmSelection/FilmSelection";
 function InfoBoxes() {
 
     return (
-        <FilmSelection/>
+        <div className="App">
+            <FilmSelection/>
+        </div>
     );
 }
 

@@ -14,6 +14,7 @@ export const useStyles = makeStyles({
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
+        width: 'fit-content',
         '&>span': {
             maxWidth: '100px',
             overflow: 'hidden',

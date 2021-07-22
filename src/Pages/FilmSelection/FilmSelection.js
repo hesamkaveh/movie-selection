@@ -46,7 +46,7 @@ function FilmSelection() {
     }
 
     return (
-        <div className="App">
+        <div>
             <h2>Film Selection by Name or Group Name</h2>
             <div className={classes.autocompleteContainer}>
                 <CustomAutocomplete options={options}
@@ -111,7 +111,7 @@ function FilmSelection() {
                 <div className={classes.modalContainer}>
                     <h3>Select A Group:</h3>
                     <Grid container spacing={2}>
-                        {groups.map((group) => (
+                        {groups.filter((group) => group !== selectedGroup).map((group) => (
                             <Grid item>
                                 <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
                                       onClick={() => handleGroupSelection(group)}
@@ -124,6 +124,13 @@ function FilmSelection() {
                             </Grid>
                         ))}
                     </Grid>
+                    {selectedGroup ? (
+                        <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
+                              style={{marginTop: 40, border: 'unset', marginLeft: 'auto'}}
+                              onClick={() => handleGroupSelection(null)}>
+                                    <span>Clear</span>
+                                </span>
+                    ) : null}
                 </div>
             </Modal>
         </div>
