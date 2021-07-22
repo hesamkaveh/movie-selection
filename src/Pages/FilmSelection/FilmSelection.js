@@ -11,9 +11,9 @@ import {CustomAutocomplete} from "../../components/CustomAutocomplete/CustomAuto
 function FilmSelection() {
     const classes = useStyles()
 
-    const [selectedValues, setSelectedValues] = useState([])
+    const [values, setValues] = useState([])
     const [selectedGroup, isSelectedGroup] = useState(null)
-    const [isModal, setIsModal] = useState(null)
+    const [isModal, setIsModal] = useState(false)
 
     let groups = []
     options.map(({group}) => !groups.includes(group) && groups.push(group))
@@ -26,18 +26,18 @@ function FilmSelection() {
         setIsModal(false)
     }
 
-    const handleDelete = (title) => {
+    const handleDeleteValue = (title) => {
         let tmp = []
-        tmp = selectedValues.filter((item) => item.title !== title)
-        setSelectedValues(tmp)
+        tmp = values.filter((item) => item.title !== title)
+        setValues(tmp)
     }
 
     const handleAdd = (option) => {
-        setSelectedValues([...selectedValues, option])
+        setValues([...values, option])
     }
 
     const handleReplaceValues = (newValue) => {
-        setSelectedValues(newValue)
+        setValues(newValue)
     }
 
     const handleGroupSelection = (group) => {
@@ -50,7 +50,7 @@ function FilmSelection() {
             <h2>Film Selection by Name or Group Name</h2>
             <div className={classes.autocompleteContainer}>
                 <CustomAutocomplete options={options}
-                                    alues={selectedValues}
+                                    alues={values}
                                     setValue={handleReplaceValues}
                                     groupBy={'group'}
                 />
@@ -66,7 +66,7 @@ function FilmSelection() {
                         <Grid container spacing={2}>
 
                             {options.filter(option => option.group === selectedGroup).map((option) => (
-                                !selectedValues.find(({title}) => title == option.title) ? (
+                                !values.find(({title}) => title == option.title) ? (
                                     <Grid item key={option.title}>
                                 <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
                                       onClick={() => handleAdd(option)}
@@ -86,12 +86,12 @@ function FilmSelection() {
                 ) : null}
 
             </div>
-            {selectedValues.length ? <div>
-                <h3>selected options ({selectedValues.length}):</h3>
+            {values.length ? <div>
+                <h3>selected options ({values.length}):</h3>
                 <Grid container spacing={2}>
-                    {selectedValues.map(({title, year, group}) => (
+                    {values.map(({title, year, group}) => (
                         <Grid item>
-                                <span className={classes.eachSelected} onClick={() => handleDelete(title)}
+                                <span className={classes.eachSelected} onClick={() => handleDeleteValue(title)}
                                       key={title}>
                                     <Icon>
                                     <CloseIcon fontSize={'small'}/>
