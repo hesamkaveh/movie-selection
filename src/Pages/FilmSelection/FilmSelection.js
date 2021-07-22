@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {memo, useState} from "react";
 import React from 'react';
 import {options} from "./sampleData";
 import {Button, Grid, Icon, Modal} from "@material-ui/core";
@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import clsx from "clsx";
 import {CustomAutocomplete} from "../../components/CustomAutocomplete/CustomAutocomplete";
+import {GroupSelectionModal} from "./helper/GroupSelectionModal/GroupSelectionModal";
 
 function FilmSelection() {
     const classes = useStyles()
@@ -102,39 +103,16 @@ function FilmSelection() {
                     ))}
                 </Grid>
             </div> : null}
-            <Modal
-                open={isModal}
-                onClose={handleCloseModal}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-            >
-                <div className={classes.modalContainer}>
-                    <h3>Select A Group:</h3>
-                    <Grid container spacing={2}>
-                        {groups.filter((group) => group !== selectedGroup).map((group) => (
-                            <Grid item>
-                                <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
-                                      onClick={() => handleGroupSelection(group)}
-                                      key={group}>
-                                    <Icon>
-                                    <CloseIcon fontSize={'small'}/>
-                                        </Icon>
-                                    <span>{group}</span>
-                                </span>
-                            </Grid>
-                        ))}
-                    </Grid>
-                    {selectedGroup ? (
-                        <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
-                              style={{marginTop: 40, border: 'unset', marginLeft: 'auto'}}
-                              onClick={() => handleGroupSelection(null)}>
-                                    <span>Clear</span>
-                                </span>
-                    ) : null}
-                </div>
-            </Modal>
+            <GroupSelectionModal
+                isModal={isModal}
+                handleCloseModal={handleCloseModal}
+                selectedGroup={selectedGroup}
+                handleGroupSelection={handleGroupSelection}
+                groups={groups}
+            />
         </div>
     );
 }
 
 export default FilmSelection;
+
