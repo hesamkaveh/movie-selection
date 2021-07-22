@@ -1,13 +1,11 @@
-import {memo, useState} from "react";
+import {useState} from "react";
 import React from 'react';
 import {options} from "./sampleData";
-import {Button, Grid, Icon, Modal} from "@material-ui/core";
+import {Button, Grid} from "@material-ui/core";
 import {useStyles} from "./FilmSelection.style";
-import CloseIcon from '@material-ui/icons/Close';
-import AddIcon from '@material-ui/icons/Add';
-import clsx from "clsx";
 import {CustomAutocomplete} from "../../components/CustomAutocomplete/CustomAutocomplete";
 import {GroupSelectionModal} from "./helper/GroupSelectionModal/GroupSelectionModal";
+import {TextBox} from "../../components/TextBox/TextBox";
 
 function FilmSelection() {
     const classes = useStyles()
@@ -69,16 +67,9 @@ function FilmSelection() {
                             {options.filter(option => option.group === selectedGroup).map((option) => (
                                 !values.find(({title}) => title == option.title) ? (
                                     <Grid item key={option.title}>
-                                <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
-                                      onClick={() => handleAdd(option)}
-                                      key={option.title}>
-                                    <Icon>
-                                    <AddIcon fontSize={'small'}/>
-                                        </Icon>
-                                    <span>
-                                    {option.title}
-                                    </span>
-                                </span>
+                                        <TextBox handleClick={() => handleAdd(option)} variant={'add'}>
+                                            {option.title}
+                                        </TextBox>
                                     </Grid>
                                 ) : null
                             ))}
@@ -92,13 +83,9 @@ function FilmSelection() {
                 <Grid container spacing={2}>
                     {values.map(({title, year, group}) => (
                         <Grid item>
-                                <span className={classes.eachSelected} onClick={() => handleDeleteValue(title)}
-                                      key={title}>
-                                    <Icon>
-                                    <CloseIcon fontSize={'small'}/>
-                                        </Icon>
-                                    <span>{title}</span>
-                                </span>
+                            <TextBox handleClick={() => handleDeleteValue(title)} variant={'delete'}>
+                                {title}
+                            </TextBox>
                         </Grid>
                     ))}
                 </Grid>

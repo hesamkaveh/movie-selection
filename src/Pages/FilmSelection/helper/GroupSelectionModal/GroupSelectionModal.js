@@ -1,19 +1,18 @@
 import React, {memo} from "react";
 import {useStyles} from "../../FilmSelection.style";
-import {Grid, Icon, Modal} from "@material-ui/core";
-import clsx from "clsx";
-import CloseIcon from "@material-ui/icons/Close";
+import {Button, Grid, Modal} from "@material-ui/core";
+import {TextBox} from "../../../../components/TextBox/TextBox";
 
-export const GroupSelectionModal=memo(({
-                                    isModal,
-                                    handleCloseModal,
-                                    selectedGroup,
-                                    handleGroupSelection,
-                                    groups
-                                })=>{
+export const GroupSelectionModal = memo(({
+                                             isModal,
+                                             handleCloseModal,
+                                             selectedGroup,
+                                             handleGroupSelection,
+                                             groups
+                                         }) => {
     const classes = useStyles()
 
-    return(
+    return (
         <Modal
             open={isModal}
             onClose={handleCloseModal}
@@ -25,23 +24,16 @@ export const GroupSelectionModal=memo(({
                 <Grid container spacing={2}>
                     {groups.filter((group) => group !== selectedGroup).map((group) => (
                         <Grid item>
-                                <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
-                                      onClick={() => handleGroupSelection(group)}
-                                      key={group}>
-                                    <Icon>
-                                    <CloseIcon fontSize={'small'}/>
-                                        </Icon>
-                                    <span>{group}</span>
-                                </span>
+                            <TextBox handleClick={() => handleGroupSelection(group)} variant={'add'}>
+                                {group}
+                            </TextBox>
                         </Grid>
                     ))}
                 </Grid>
                 {selectedGroup ? (
-                    <span className={clsx(classes.eachSelected, classes.eachSelectedGroup)}
-                          style={{marginTop: 40, border: 'unset', marginLeft: 'auto'}}
-                          onClick={() => handleGroupSelection(null)}>
-                                    <span>Clear</span>
-                                </span>
+                    <Button style={{marginLeft: 'auto', display: 'block'}} onClick={() => handleGroupSelection(null)}>
+                        Clear
+                    </Button>
                 ) : null}
             </div>
         </Modal>
