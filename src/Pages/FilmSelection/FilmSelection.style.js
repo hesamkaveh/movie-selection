@@ -36,11 +36,13 @@ export const useStyles = makeStyles({
 
     },
     modalContainer: {
-        backgroundColor: '#fff',
         width: '50%',
-        margin: '0 auto',
-        borderRadius: '16px',
         padding: '16px 32px 32px 32px',
-        marginTop: 16
+        marginTop: '16px',
+        borderRadius: '16px',
+        backgroundColor: '#fff',
+        position: 'absolute',
+        top: '20%',
+        left: '25%',
     }
 });
