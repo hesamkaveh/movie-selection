@@ -1,4 +1,3 @@
-import './App.css';
 import FilmSelection from "./Pages/FilmSelection/FilmSelection";
 
 function InfoBoxes() {
