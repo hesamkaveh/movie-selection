@@ -1,3 +1,7 @@
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/17352f08-77fb-4a4b-bdb6-a5533d1c6867/deploy-status)](https://app.netlify.com/sites/cranky-brahmagupta-0c15c0/deploys)
+
+
 # Test Project for Applying Job
 ## Search Movies by Movie Name or By Category Selection
 
