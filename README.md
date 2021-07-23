@@ -14,12 +14,13 @@
 - [ ] Migrate to TypeScript, or at least use proptypes.
 - [ ] Documenting Project using Storybook or Styleguidist.
 
-## How To Run using npm:
+## How To Run
+### Using npm
 - `npm i`
 
 - `npm run start`
 
-#How to Run Using yarn:
+### Using yarn
 - `yarn`
 
 - `yarn start`
