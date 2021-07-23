@@ -107,7 +107,7 @@ const GroupSection = React.memo(({
                                      handleAdd,
                                  }) => (
     <div>
-        <h3>{`<<${selectedGroup}>> Options`}:</h3>
+        <h3>&#171;{selectedGroup}&#187; Options:</h3>
         <Grid container spacing={2}>
             {options.filter(option => option.group === selectedGroup).map((option) => (
                 !values.find(({title}) => title === option.title) ? (
